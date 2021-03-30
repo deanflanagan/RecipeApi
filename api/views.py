@@ -1,12 +1,12 @@
 from rest_framework import viewsets
-from .models import Dinner, Recipe, Ingredient
-from .serializers import DinnerSerializer, RecipeSerializer, IngredientSerializer
+from .models import  Recipe, Ingredient
+from .serializers import  RecipeSerializer, IngredientSerializer
 # Create your views here.
 
 
-class DinnerViewSet(viewsets.ModelViewSet):
-    queryset = Dinner.objects.all()
-    serializer_class = DinnerSerializer
+# class DinnerViewSet(viewsets.ModelViewSet):
+#     queryset = Dinner.objects.all()
+#     serializer_class = DinnerSerializer
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
