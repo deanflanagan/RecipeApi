@@ -6,8 +6,7 @@ from rest_framework import routers
 from .views import  RecipeViewSet, IngredientViewSet
  
 router = routers.DefaultRouter()
-# router.register('dinners', DinnerViewSet)
-# router.register('ingredients', IngredientViewSet)
+router.register('ingredients', IngredientViewSet)
 router.register('recipes', RecipeViewSet)
 
 
