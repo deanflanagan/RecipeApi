@@ -14,6 +14,9 @@ class Recipe(models.Model):
     quick = models.BooleanField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ingredients = models.ManyToManyField(Ingredient, related_name='ingredients')
+
+    # @action(detail=True, methods=['POST'])
+    # def 
        
 
     def __str__(self):
