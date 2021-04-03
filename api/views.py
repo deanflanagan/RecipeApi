@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action 
+from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth.models import User
 from .models import  Recipe, Ingredient
 from .serializers import  RecipeSerializer, IngredientSerializer
@@ -8,13 +9,17 @@ from .serializers import  RecipeSerializer, IngredientSerializer
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+    authentication_classes = (TokenAuthentication,)
 
+    
     @action(detail=True, methods=['POST'])
     def adjust_recipe(self, request, pk=None):
+        print(request.data)
         if 'ingredients' in request.data :
             recipe = Recipe.objects.get(id=pk)
-            user = User.objects.get(id=1)
-
+            # user = User.objects.get(id=1)
+            user = request.user
+            print(user)
             for ing in recipe.ingredients.all():
                 print(ing.name)
             # 1 check if there's already ingredietns in there. If not, we create. If yes, we update.
@@ -32,3 +37,4 @@ class RecipeViewSet(viewsets.ModelViewSet):
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+    authentication_classes = (TokenAuthentication,)
