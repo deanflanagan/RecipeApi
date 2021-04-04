@@ -4,7 +4,11 @@ from rest_framework.decorators import action
 from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth.models import User
 from .models import  Recipe, Ingredient
-from .serializers import  RecipeSerializer, IngredientSerializer
+from .serializers import  RecipeSerializer, IngredientSerializer, UserSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
@@ -12,27 +16,27 @@ class RecipeViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
 
     
-    @action(detail=True, methods=['POST'])
-    def adjust_recipe(self, request, pk=None):
-        print(request.data)
-        if 'ingredients' in request.data :
-            recipe = Recipe.objects.get(id=pk)
-            # user = User.objects.get(id=1)
-            user = request.user
-            print(user)
-            for ing in recipe.ingredients.all():
-                print(ing.name)
-            # 1 check if there's already ingredietns in there. If not, we create. If yes, we update.
-            # try:
-            #     current_ingredients = recipe.ingredients.all()
+    # @action(detail=True, methods=['POST'])
+    # def adjust_recipe(self, request, pk=None):
+    #     print(request.data)
+    #     if 'ingredients' in request.data :
+    #         recipe = Recipe.objects.get(id=pk)
+    #         # user = User.objects.get(id=1)
+    #         user = request.user
+    #         print(user)
+    #         for ing in recipe.ingredients.all():
+    #             print(ing.name)
+    #         # 1 check if there's already ingredietns in there. If not, we create. If yes, we update.
+    #         # try:
+    #         #     current_ingredients = recipe.ingredients.all()
 
 
 
-            response = {'message':'its working'}
-            return Response(response, status=status.HTTP_200_OK)
-        else:
-            response = {'message':'You need to provide at least two ingredients'}
-            return Response(response, status=status.HTTP_400_BAD_REQUEST)           
+    #         response = {'message':'its working'}
+    #         return Response(response, status=status.HTTP_200_OK)
+    #     else:
+    #         response = {'message':'You need to provide at least two ingredients'}
+    #         return Response(response, status=status.HTTP_400_BAD_REQUEST)           
 
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
