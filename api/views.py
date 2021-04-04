@@ -15,29 +15,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
     serializer_class = RecipeSerializer
     authentication_classes = (TokenAuthentication,)
 
-    
-    # @action(detail=True, methods=['POST'])
-    # def adjust_recipe(self, request, pk=None):
-    #     print(request.data)
-    #     if 'ingredients' in request.data :
-    #         recipe = Recipe.objects.get(id=pk)
-    #         # user = User.objects.get(id=1)
-    #         user = request.user
-    #         print(user)
-    #         for ing in recipe.ingredients.all():
-    #             print(ing.name)
-    #         # 1 check if there's already ingredietns in there. If not, we create. If yes, we update.
-    #         # try:
-    #         #     current_ingredients = recipe.ingredients.all()
-
-
-
-    #         response = {'message':'its working'}
-    #         return Response(response, status=status.HTTP_200_OK)
-    #     else:
-    #         response = {'message':'You need to provide at least two ingredients'}
-    #         return Response(response, status=status.HTTP_400_BAD_REQUEST)           
-
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
