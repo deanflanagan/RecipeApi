@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth.models import User
 from .models import  Recipe, Ingredient
+from rest_framework.permissions import IsAuthenticated
 from .serializers import  RecipeSerializer, IngredientSerializer, UserSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -14,6 +15,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
     authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()

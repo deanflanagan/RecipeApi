@@ -11,14 +11,10 @@ class Ingredient(models.Model):
         return self.name 
     
 class Recipe(models.Model):
-    title = models.CharField(max_length=32, blank=False)
+    title = models.CharField(max_length=32, blank=False, unique=True)
     quick = models.BooleanField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ingredients = models.ManyToManyField(Ingredient, related_name='ingredients')#,validators=[MinValueValidator(2)])
-
-    # @action(detail=True, methods=['POST'])
-    # def 
-       
 
     def __str__(self):
         return self.title

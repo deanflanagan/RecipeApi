@@ -18,17 +18,14 @@ class RecipeSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         recipe = Recipe.objects.create(user=self.context['request'].user, quick=validated_data['quick'], title=validated_data['title'])
         recipe.save()
-        ingredients = [Ingredient(**item) for item in validated_data.pop('ingredients')] # has to be a min of 2 ingredients
-        # here validate the ingredients and first make the recipe. Then add or set them one by one.
-        for ing in ingredients:
+        ingredients = [Ingredient(**item) for item in validated_data.pop('ingredients')] # has to be a min of 2 ingredients on front end
+        for ingredient in ingredients:
             try:
-                ing = Ingredient.objects.get(name=ing.name) # if this throws an error it will make a new ingredient
+                ingredient = Ingredient.objects.get(name=ingredient.name) # if this throws an error it will make a new ingredient
             except:
-                ing.save()
-            recipe.ingredients.add(ing)
-            print(recipe)
+                ingredient.save()
+            recipe.ingredients.add(ingredient)
         return recipe
-
  
 class UserSerializer(serializers.ModelSerializer):
   
@@ -39,4 +36,5 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
+        Token.objects.create(user=user)
         return user
