@@ -15,6 +15,7 @@ class Recipe(models.Model):
     quick = models.BooleanField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ingredients = models.ManyToManyField(Ingredient, related_name='ingredients')#,validators=[MinValueValidator(2)])
+    # image = models.ImageField()
 
     def __str__(self):
         return self.title

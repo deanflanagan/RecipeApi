@@ -13,7 +13,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ['id','title','quick', 'ingredients'] #,'user'
+        fields = ['id','title','quick', 'ingredients']#,'image'] #,'user'
 
     def create(self, validated_data):
         recipe = Recipe.objects.create(user=self.context['request'].user, quick=validated_data['quick'], title=validated_data['title'])
